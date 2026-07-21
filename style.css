@@ -23,10 +23,10 @@
     --radius: 20px;
     --radius-sm: 12px;
     --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --font-primary: 'Poppins', sans-serif;
-    --font-script: 'Dancing Script', cursive;
-    --font-fancy: 'Great Vibes', cursive;
-    --font-fun: 'Pacifico', cursive;
+    --font-primary: 'Poppins', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif;
+    --font-script: 'Dancing Script', 'Segoe UI Emoji', 'Apple Color Emoji', cursive;
+    --font-fancy: 'Great Vibes', 'Segoe UI Emoji', 'Apple Color Emoji', cursive;
+    --font-fun: 'Pacifico', 'Segoe UI Emoji', 'Apple Color Emoji', cursive;
 }
 
 /* ============================
@@ -412,17 +412,18 @@ section {
 
 .quotes-carousel {
     max-width: 700px;
+    width: 100%;
     margin: 0 auto;
     position: relative;
     min-height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .quote-card {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    box-sizing: border-box;
     padding: 40px 30px;
     background: var(--gradient-card);
     border: 1px solid rgba(168, 85, 247, 0.2);
@@ -431,18 +432,26 @@ section {
     box-shadow: var(--shadow-card);
     text-align: center;
     opacity: 0;
-    transform: scale(0.8) translateX(100px);
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.95) translateX(40px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .quote-card.active {
+    position: relative;
     opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     transform: scale(1) translateX(0);
 }
 
 .quote-card.exit-left {
+    position: absolute;
     opacity: 0;
-    transform: scale(0.8) translateX(-100px);
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.95) translateX(-40px);
 }
 
 .quote-icon {
@@ -1352,67 +1361,3 @@ section {
         font-size: 1.2rem;
     }
 }
-
-/* ============================
-   3D Tilt & Glassmorphism 3.0
-   ============================ */
-.friendship-card, .sweet-card, .wish-card, .special-card, .countdown-card, .photo-item, .quote-card {
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)) !important;
-    backdrop-filter: blur(25px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
-    overflow: hidden;
-}
-
-/* Spotlight Follow Effect on Glass Cards */
-.friendship-card::after, .sweet-card::after, .special-card::after, .countdown-card::after, .quote-card::after, .upload-area::after {
-    content: '';
-    position: absolute;
-    top: var(--mouse-y, 50%);
-    left: var(--mouse-x, 50%);
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(255, 107, 157, 0.22) 0%, rgba(168, 85, 247, 0.12) 45%, transparent 70%);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    border-radius: 50%;
-    z-index: 1;
-}
-
-.friendship-card:hover::after, .sweet-card:hover::after, .special-card:hover::after, .countdown-card:hover::after, .quote-card:hover::after, .upload-area:hover::after {
-    opacity: 1;
-}
-
-/* 3D Depth for Text & Icons inside cards */
-.friendship-card-emoji, .sweet-card-emoji, .special-emoji, .quote-icon, .wish-number {
-    transform: translateZ(25px);
-    display: inline-block;
-    filter: drop-shadow(0 5px 15px rgba(255, 107, 157, 0.4));
-}
-
-.friendship-card-title, .sweet-card-text, .special-content h2, .quote-text {
-    transform: translateZ(15px);
-}
-
-/* Glass Floating Orbs */
-.floating-item {
-    text-shadow: 0 0 20px rgba(255, 107, 157, 0.8), 0 0 40px rgba(168, 85, 247, 0.5);
-    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
-    will-change: transform;
-}
-
-/* 3D Gift Box Enhancement */
-.gift-box {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-}
-.gift-lid {
-    box-shadow: 0 10px 25px rgba(255, 107, 157, 0.5), inset 0 2px 2px rgba(255, 255, 255, 0.4);
-}
-

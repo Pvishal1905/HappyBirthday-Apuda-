@@ -644,78 +644,8 @@ carouselEl.addEventListener('touchend', (e) => {
 
 
 // ============================
-// Smooth Reveal & 3D Interactive Init
+// Smooth Reveal on Page Load
 // ============================
 window.addEventListener('load', () => {
     document.body.style.opacity = '1';
-    init3DTiltEffect();
 });
-
-// ============================
-// 3D Card Tilt & Parallax Effect
-// ============================
-function init3DTiltEffect() {
-    const selector = '.friendship-card, .sweet-card, .wish-card, .special-card, .countdown-card, .photo-item, .quote-card';
-    const cards = document.querySelectorAll(selector);
-
-    cards.forEach(card => {
-        if (card.dataset.tiltInitialized) return;
-        card.dataset.tiltInitialized = 'true';
-
-        card.addEventListener('mousemove', handleTilt);
-        card.addEventListener('mouseleave', resetTilt);
-        card.addEventListener('touchmove', handleTiltTouch, { passive: true });
-        card.addEventListener('touchend', resetTilt);
-    });
-
-    function handleTilt(e) {
-        const card = this;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = ((y - centerY) / centerY) * -12;
-        const rotateY = ((x - centerX) / centerX) * 12;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-    }
-
-    function handleTiltTouch(e) {
-        if (!e.touches[0]) return;
-        const touch = e.touches[0];
-        const card = this;
-        const rect = card.getBoundingClientRect();
-        const x = touch.clientX - rect.left;
-        const y = touch.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = ((y - centerY) / centerY) * -8;
-        const rotateY = ((x - centerX) / centerX) * 8;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-    }
-
-    function resetTilt() {
-        this.style.transform = '';
-    }
-}
-
-// 3D Parallax Scroll effect for floating background items
-window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const floatingItems = document.querySelectorAll('.floating-item');
-
-    floatingItems.forEach((item, index) => {
-        const speed = (index % 3 + 1) * 0.12;
-        item.style.transform = `translate3d(0, ${scrolled * speed}px, 0) rotate(${scrolled * 0.04}deg)`;
-    });
-}, { passive: true });
