@@ -328,33 +328,56 @@ const uploadArea = document.getElementById('uploadArea');
 const uploadBtn = document.getElementById('uploadBtn');
 const photoInput = document.getElementById('photoInput');
 const photoGallery = document.getElementById('photoGallery');
-let photos = [];
+// Pre-loaded photos in repository (visible to EVERYONE on any device!)
+const defaultPhotos = [
+    'photos/WhatsApp Image 2026-07-21 at 8.16.44 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 8.16.46 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 8.16.49 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 8.16.51 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 8.16.51 PM (1).jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 8.16.52 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 8.16.56 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 9.52.02 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 9.52.04 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 10.50.11 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 10.50.13 PM.jpeg',
+    'photos/WhatsApp Image 2026-07-21 at 10.50.13 PM (1).jpeg',
+    'WhatsApp Image 2026-07-21 at 10.52.34 PM.jpeg',
+    'WhatsApp Image 2026-07-21 at 10.52.36 PM.jpeg',
+    'photos/ChatGPT Image May 19, 2026, 01_37_05 PM.png',
+    'photos/ChatGPT Image May 19, 2026, 01_39_03 PM.png'
+];
+
+let photos = [...defaultPhotos];
 let lightboxIndex = 0;
 
-// Load saved photos from localStorage on page load
+// Load photos (default + any user uploaded photos from localStorage)
 function loadSavedPhotos() {
     try {
-        const saved = localStorage.getItem('birthdayPhotos');
+        const saved = localStorage.getItem('birthdayUserPhotos');
+        let userUploaded = [];
         if (saved) {
-            photos = JSON.parse(saved);
-            photos.forEach((p, i) => addPhotoToGallery(p, i));
+            userUploaded = JSON.parse(saved);
         }
+        photos = [...defaultPhotos, ...userUploaded];
     } catch (e) {
         console.warn('Could not load saved photos:', e);
+        photos = [...defaultPhotos];
     }
+    refreshGallery();
 }
 
-// Save photos to localStorage
-function savePhotos() {
+// Save user-uploaded photos to localStorage
+function saveUserPhotos() {
     try {
-        localStorage.setItem('birthdayPhotos', JSON.stringify(photos));
+        const userUploaded = photos.slice(defaultPhotos.length);
+        localStorage.setItem('birthdayUserPhotos', JSON.stringify(userUploaded));
     } catch (e) {
-        console.warn('Storage full! Some photos may not be saved.', e);
-        alert('⚠️ Storage is full! Try uploading smaller or fewer photos.');
+        console.warn('Storage full!', e);
     }
 }
 
-// Initialize gallery with saved photos
+// Initialize gallery with photos
 loadSavedPhotos();
 
 uploadBtn.addEventListener('click', (e) => {
@@ -416,7 +439,7 @@ function handleFiles(files) {
                 const compressedData = canvas.toDataURL('image/jpeg', 0.7);
                 photos.push(compressedData);
                 addPhotoToGallery(compressedData, photos.length - 1);
-                savePhotos();
+                saveUserPhotos();
             };
             img.src = e.target.result;
         };
@@ -444,7 +467,7 @@ function addPhotoToGallery(src, index) {
 window.deletePhoto = function(e, index) {
     e.stopPropagation();
     photos.splice(index, 1);
-    savePhotos();
+    saveUserPhotos();
     refreshGallery();
 };
 
