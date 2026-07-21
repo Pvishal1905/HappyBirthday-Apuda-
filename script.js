@@ -547,20 +547,44 @@ function animateOnScroll() {
 // Countdown / Age
 // ============================
 function updateCountdown() {
-    // Set a birth year — user can change this
-    const birthYear = 2003;
+    const birthDate = new Date(2003, 6, 22, 0, 0, 0); // July 22, 2003
     const now = new Date();
-    const years = now.getFullYear() - birthYear;
-    const months = years * 12 + now.getMonth();
-    const days = Math.floor((now - new Date(birthYear, now.getMonth(), now.getDate())) / (1000 * 60 * 60 * 24));
+    const diffMs = Math.max(0, now - birthDate);
+
+    let years = now.getFullYear() - birthDate.getFullYear();
+    if (now.getMonth() < birthDate.getMonth() || (now.getMonth() === birthDate.getMonth() && now.getDate() < birthDate.getDate())) {
+        years--;
+    }
+
+    const totalMonths = (now.getFullYear() - birthDate.getFullYear()) * 12 + (now.getMonth() - birthDate.getMonth());
+    const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const totalWeeks = Math.floor(totalDays / 7);
+    const totalHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const totalMinutes = Math.floor(diffMs / (1000 * 60));
+    const totalSeconds = Math.floor(diffMs / 1000);
 
     const cdYears = document.getElementById('cdYears');
     const cdMonths = document.getElementById('cdMonths');
+    const cdWeeks = document.getElementById('cdWeeks');
     const cdDays = document.getElementById('cdDays');
+    const cdHours = document.getElementById('cdHours');
+    const cdMinutes = document.getElementById('cdMinutes');
+    const cdSeconds = document.getElementById('cdSeconds');
 
-    animateNumber(cdYears, years);
-    animateNumber(cdMonths, months);
-    animateNumber(cdDays, days);
+    if (cdYears) animateNumber(cdYears, years);
+    if (cdMonths) animateNumber(cdMonths, totalMonths);
+    if (cdWeeks) animateNumber(cdWeeks, totalWeeks);
+    if (cdDays) animateNumber(cdDays, totalDays);
+    if (cdHours) animateNumber(cdHours, totalHours);
+    if (cdMinutes) animateNumber(cdMinutes, totalMinutes);
+    if (cdSeconds) {
+        animateNumber(cdSeconds, totalSeconds);
+        // Live second ticker
+        setInterval(() => {
+            const currentMs = new Date() - birthDate;
+            cdSeconds.textContent = Math.floor(currentMs / 1000).toLocaleString();
+        }, 1000);
+    }
 }
 
 function animateNumber(element, target) {
