@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Happy Birthday - A Special Surprise For My Bestie">
+    <title>🎂 Happy Birthday Arpita! 🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Preloader / Entrance -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <div class="gift-box">
+                <div class="gift-lid">
+                    <div class="gift-bow"></div>
+                </div>
+                <div class="gift-body"></div>
+            </div>
+            <p class="preloader-text">I have a surprise for you...</p>
+            <button id="openGiftBtn" class="open-gift-btn">
+                <span>🎁</span> Open Your Gift <span>🎁</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Floating Elements -->
+    <div id="floatingElements"></div>
+
+    <!-- Main Content -->
+    <main id="mainContent" class="hidden">
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <div class="crown-emoji">👑</div>
+                <h1 class="hero-title">
+                    <span class="line1">Happy Birthday</span>
+                    <span class="line2">Arpita 🫂!</span>
+                </h1>
+                <div class="hero-date">
+                    <span class="cake-emoji">🎂</span>
+                    <span id="birthdayDate">July 22, 2003</span>
+                    <span class="cake-emoji">🎂</span>
+                </div>
+                <p class="hero-subtitle">Today the world celebrates because you were born, Arpita 🫂! 💖</p>
+                <div class="hero-hearts">
+                    <span>💕</span><span>✨</span><span>🌟</span><span>💕</span><span>✨</span>
+                </div>
+                <a href="#quotes" class="scroll-down-btn">
+                    <span>Scroll Down For Surprises</span>
+                    <div class="scroll-arrow">↓</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Quotes & Messages Section -->
+        <section id="quotes" class="quotes-section">
+            <div class="section-header">
+                <span class="section-emoji">💌</span>
+                <h2>Words From My Heart To Arpita 🫂</h2>
+                <p class="section-sub">Every word is written with love, just for you Arpita 🫂</p>
+            </div>
+            <div class="quotes-carousel" id="quotesCarousel">
+                <!-- Quotes will be injected by JS -->
+            </div>
+            <div class="carousel-controls">
+                <button id="prevQuote" class="carousel-btn" aria-label="Previous quote">❮</button>
+                <div class="carousel-dots" id="carouselDots"></div>
+                <button id="nextQuote" class="carousel-btn" aria-label="Next quote">❯</button>
+            </div>
+        </section>
+
+        <!-- Friendship Lines Section -->
+        <section id="friendship" class="friendship-section">
+            <div class="section-header">
+                <span class="section-emoji">🤝</span>
+                <h2>Our Friendship Story</h2>
+                <p class="section-sub">Because you're not just a friend, you're my person</p>
+            </div>
+            <div class="friendship-grid" id="friendshipGrid">
+                <!-- Cards injected by JS -->
+            </div>
+        </section>
+
+        <!-- Photo Gallery Section -->
+        <section id="gallery" class="gallery-section">
+            <div class="section-header">
+                <span class="section-emoji">📸</span>
+                <h2>Our Beautiful Memories</h2>
+                <p class="section-sub">Every picture tells our story</p>
+            </div>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📷</div>
+                <h3>Drop Photos Here</h3>
+                <p>or click to upload your favorite memories together</p>
+                <input type="file" id="photoInput" multiple accept="image/*" hidden>
+                <button id="uploadBtn" class="upload-btn">
+                    <span>✨</span> Choose Photos <span>✨</span>
+                </button>
+            </div>
+            <div class="photo-gallery" id="photoGallery">
+                <!-- Photos will appear here -->
+            </div>
+            <!-- Lightbox -->
+            <div id="lightbox" class="lightbox hidden">
+                <button class="lightbox-close" id="lightboxClose">✕</button>
+                <button class="lightbox-nav lightbox-prev" id="lightboxPrev">❮</button>
+                <img id="lightboxImg" src="" alt="Gallery photo">
+                <button class="lightbox-nav lightbox-next" id="lightboxNext">❯</button>
+            </div>
+        </section>
+
+        <!-- Flirty + Sweet Lines Section -->
+        <section id="sweet" class="sweet-section">
+            <div class="section-header">
+                <span class="section-emoji">😏💕</span>
+                <h2>Some Lines Just For You</h2>
+                <p class="section-sub">Because you deserve to smile, blush & feel special</p>
+            </div>
+            <div class="sweet-cards" id="sweetCards">
+                <!-- Cards injected by JS -->
+            </div>
+        </section>
+
+        <!-- Birthday Wishes Section -->
+        <section id="wishes" class="wishes-section">
+            <div class="section-header">
+                <span class="section-emoji">🌠</span>
+                <h2>Birthday Wishes For You</h2>
+                <p class="section-sub">Close your eyes, make a wish... ✨</p>
+            </div>
+            <div class="wishes-container" id="wishesContainer">
+                <!-- Wishes injected by JS -->
+            </div>
+        </section>
+
+        <!-- Special Message -->
+        <section id="special" class="special-section">
+            <div class="special-card">
+                <div class="special-glow"></div>
+                <div class="special-content">
+                    <div class="special-emoji">💎</div>
+                    <h2>A Special Message</h2>
+                    <div class="special-divider">
+                        <span>✦</span>
+                    </div>
+                    <p class="special-text">
+                        Dear Arpita 🫂,
+                    </p>
+                    <p class="special-text">
+                        On your special day, I just want you to know — you are not just my best friend, 
+                        you're my favorite human in this entire universe, Arpita 🫂. 🌍💖
+                    </p>
+                    <p class="special-text">
+                        You're the reason my laughs are louder, my smiles are brighter, 
+                        and my life is infinitely better. Every moment with you is a memory I treasure forever.
+                    </p>
+                    <p class="special-text">
+                        Thank you for being YOU — beautifully chaotic, wonderfully weird, 
+                        and absolutely irreplaceable. No one could ever take your place.
+                    </p>
+                    <p class="special-text highlight-text">
+                        Happy Birthday, Arpita 🫂! May this year bring you all the happiness 
+                        you give to everyone around you. You deserve the world and more! 🎂🌟
+                    </p>
+                    <p class="special-signature">
+                        — With all my love, Your Bestie Forever 💕 Happy Birthday Arpita 🫂! 🎉
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown / Age Counter -->
+        <section id="countdown" class="countdown-section">
+            <div class="section-header">
+                <span class="section-emoji">⏰</span>
+                <h2>Celebrating Every Second Of You</h2>
+            </div>
+            <div class="countdown-grid">
+                <div class="countdown-card">
+                    <span class="countdown-number" id="cdYears">--</span>
+                    <span class="countdown-label">Beautiful Years</span>
+                </div>
+                <div class="countdown-card">
+                    <span class="countdown-number" id="cdMonths">--</span>
+                    <span class="countdown-label">Amazing Months</span>
+                </div>
+                <div class="countdown-card">
+                    <span class="countdown-number" id="cdDays">--</span>
+                    <span class="countdown-label">Wonderful Days</span>
+                </div>
+                <div class="countdown-card">
+                    <span class="countdown-number" id="cdSmiles">∞</span>
+                    <span class="countdown-label">Smiles You Gave Me</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">Made with 💖 just for you, Arpita 🫂</p>
+                <p class="footer-sub">Happy Birthday, Arpita 🫂! Here's to forever! 🥂</p>
+                <div class="footer-emojis">
+                    🎂 🎉 🎈 💕 🌟 🎁 ✨ 🦋 👑 💎
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Music Toggle -->
+    <button id="musicToggle" class="music-toggle" title="Toggle Background Music">
+        🎵
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
