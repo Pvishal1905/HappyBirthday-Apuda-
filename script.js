@@ -380,34 +380,40 @@ function saveUserPhotos() {
 // Initialize gallery with photos
 loadSavedPhotos();
 
-uploadBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    photoInput.click();
-});
+if (uploadBtn && photoInput) {
+    uploadBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        photoInput.click();
+    });
+}
 
-uploadArea.addEventListener('click', () => {
-    photoInput.click();
-});
+if (uploadArea && photoInput) {
+    uploadArea.addEventListener('click', () => {
+        photoInput.click();
+    });
 
-uploadArea.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    uploadArea.classList.add('drag-over');
-});
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('drag-over');
+    });
 
-uploadArea.addEventListener('dragleave', () => {
-    uploadArea.classList.remove('drag-over');
-});
+    uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('drag-over');
+    });
 
-uploadArea.addEventListener('drop', (e) => {
-    e.preventDefault();
-    uploadArea.classList.remove('drag-over');
-    const files = e.dataTransfer.files;
-    handleFiles(files);
-});
+    uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('drag-over');
+        const files = e.dataTransfer.files;
+        handleFiles(files);
+    });
+}
 
-photoInput.addEventListener('change', (e) => {
-    handleFiles(e.target.files);
-});
+if (photoInput) {
+    photoInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+    });
+}
 
 function handleFiles(files) {
     Array.from(files).forEach(file => {
